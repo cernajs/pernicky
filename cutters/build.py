@@ -18,8 +18,7 @@ for name,pts in d.items():
     def ex(poly,z0,z1):
         m=trimesh.creation.extrude_polygon(poly,z1-z0); m.apply_translation([0,0,z0]); return m
     parts=[ex(ring(5.0),0,2.0),      # grip rim on the print bed
-           ex(ring(1.6),0,7.0),      # wall
-           ex(ring(0.8),0,10.0)]     # thin cutting edge, 10 mm total
+           ex(ring(1.2),0,10.0)]     # single smooth wall, 10 mm total
     m=trimesh.boolean.union(parts, engine='manifold')
     m.export(f'{OUT}/{name}_cutter.stl')
     b=p.bounds
