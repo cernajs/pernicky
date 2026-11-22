@@ -1,6 +1,7 @@
 import json, numpy as np, trimesh, os
 from shapely.geometry import Polygon
 from shapely.ops import unary_union
+from smooth import smooth_outline
 OUT='/home/user/pernicky/cutters'; os.makedirs(OUT,exist_ok=True)
 H_TARGET=130.0
 d=json.load(open('outlines.json'))
@@ -12,8 +13,8 @@ for name,pts in d.items():
     s=H_TARGET/(maxy-miny)
     a=(np.array(p.exterior.coords)-[minx,miny])*s
     p=Polygon(a).buffer(0)
-    p=p.buffer(0.5,join_style=1).buffer(-0.5,join_style=1)  # tiny smoothing
-    def ring(o): return p.buffer(o,join_style=1,resolution=8).difference(p)
+    p=smooth_outline(p, sigma_mm=2.0)  # remove pen wobble / tracing steps
+    def ring(o): return p.buffer(o,join_style=1,resolution=16).difference(p)
     def ex(poly,z0,z1):
         m=trimesh.creation.extrude_polygon(poly,z1-z0); m.apply_translation([0,0,z0]); return m
     parts=[ex(ring(5.0),0,2.0),      # grip rim on the print bed
