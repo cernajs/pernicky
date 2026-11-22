@@ -1,7 +1,7 @@
 # Cookie cutters (hat, house, bear)
 
 Traced from the hand drawing. Each cutter: 130 mm tall outline, 10 mm high,
-0.8 mm cutting edge, 1.6 mm wall, 5 mm wide x 2 mm grip rim (print rim-side down).
+one smooth 1.2 mm wall (same thickness all the way up), 5 mm wide x 2 mm grip rim (print rim-side down).
 
 | Shape | Cookie size (W x H) |
 |-------|---------------------|
